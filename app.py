@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -13,7 +12,6 @@ def create_app(config):
     app = Flask(__name__, static_folder='/static')
     app.config.from_object(config)
     CORS(app)
-    Api(app)
     db.init_app(app)
     migrate.init_app(app, db)
 
@@ -25,7 +23,7 @@ def create_app(config):
 
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(teams, url_prefix='/teams')
-    app.register_blueprint(matches_bp)
+    app.register_blueprint(matches_bp, url_prefix='/matches')
     app.register_blueprint(users, url_prefix='/users')
     app.register_blueprint(predictions, url_prefix='/predictions')
     return app

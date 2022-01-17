@@ -8,8 +8,8 @@ def get_all_matches():
 
 
 def get_matches(team_id):
-    print("match_team_id: ", team_id)
-    return team_service.get_team(team_id).matches
+    team = team_service.get_team(team_id)
+    return team.matches if team else None
 
 
 def get_match(match_id):

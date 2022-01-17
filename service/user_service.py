@@ -43,8 +43,8 @@ def block_user(user_id):
     return 'success'
 
 
-def add_user_subscription(username):
-    user = User.query.filter_by(username=username).first()
+def add_user_subscription(user_id):
+    user = User.query.filter_by(id_=user_id).first()
     if not user:
         return 'fail'
     user.is_subscriber = True

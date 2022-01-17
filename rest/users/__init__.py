@@ -5,3 +5,4 @@ users = Blueprint('users', __name__)
 users_api = Api(users)
 
 from . import user
+from . import users

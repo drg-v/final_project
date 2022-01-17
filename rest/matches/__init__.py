@@ -5,4 +5,4 @@ matches_bp = Blueprint('matches_bp', __name__)
 matches_api = Api(matches_bp)
 
 from . import match
-from . import match_post
+from . import matches

@@ -26,8 +26,8 @@ def add_team(data):
     return 'fail'
 
 
-def change_team(data):
-    team = Team.query.filter_by(id_=data.id_).first()
+def change_team(team_id, data):
+    team = Team.query.filter_by(id_=team_id).first()
     if not team:
         return 'fail'
     team.name = data.name
@@ -39,4 +39,14 @@ def change_team(data):
     team.points = data.points
     db.session.commit()
     return 'success'
+
+
+def delete_team(team_id):
+    team = Team.query.filter_by(id_=team_id).first()
+    if not team:
+        return 'fail'
+    db.session.delete(team)
+    db.session.commit()
+    return 'success'
+
 

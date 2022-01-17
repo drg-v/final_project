@@ -21,7 +21,9 @@ class Match(Resource):
     @token_required
     @marshal_with(get_fields)
     def get(self, id_):
-        return {'matches': match_service.get_matches(id_)}, 200
+        result = match_service.get_matches(id_)
+        code = 200 if result else 401
+        return {'matches': result}, code
 
     @admin_token_required
     def delete(self, id_):
@@ -30,4 +32,4 @@ class Match(Resource):
         return {'status': result}, code
 
 
-matches_api.add_resource(Match, '/matches/<int:id_>')
+matches_api.add_resource(Match, '/<int:id_>')

@@ -1,6 +1,6 @@
-from flask_restful import Resource, fields, marshal_with, reqparse
+from flask_restful import Resource, fields, marshal_with
 from service import prediction_service
-from utils import token_required, admin_token_required
+from utils import token_required
 from . import predictions_api
 
 prediction_fields = {
