@@ -22,6 +22,7 @@ def add_team(data):
                     points=data.points)
         db.session.add(team)
         db.session.commit()
+        print("team id", team.id_)
         return 'success'
     return 'fail'
 

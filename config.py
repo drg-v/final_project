@@ -25,3 +25,13 @@ class TestConfig(Config):
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = environ.get('TEST_DATABASE_URI')
+
+
+configs = {
+    'testing': TestConfig,
+    'production': ProdConfig
+}
+
+
+def get_config(config):
+    return configs.get(config, ProdConfig)

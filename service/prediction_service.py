@@ -1,8 +1,7 @@
 import pickle
-import os
 import pandas as pd
 
-from service import user_service, match_service, team_service
+from service import match_service
 
 teams_convert = {
     'Man City': 0,

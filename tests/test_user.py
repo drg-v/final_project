@@ -1,28 +1,49 @@
 import json
 
-from tests import BaseCase
+
+def test_get_users(client, token):
+    response = client.get('users',
+                          headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
+                                   })
+    assert 200 == response.status_code
+    assert 1 == len(response.json)
 
 
-class TestUser(BaseCase):
+def test_subscribe_user(client, token):
+    payload = json.dumps({'operation': 'subscribe'})
+    response = client.patch('users/1',
+                            headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
+                                     }, data=payload)
+    assert 200 == response.status_code
+    assert "subscribe" == response.json['operation']
+    assert "success" == response.json['status']
 
-    def test_get_users(self):
 
-        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ0Njk5MjgxLCJhZG0iOnRydWV9.gf3Fs2VdwsuGSPJSHebbgnR4JGtN8nPICW58ddWMuJY"
-        response = self.app.get('user',
-                                 headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
-                                          })
-        print("RESPONSE DATA: ", response.data)
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(response.json))
+def test_subscribe_user_fail(client, token):
+    payload = json.dumps({'operation': 'subscribe'})
+    response = client.patch('users/10',
+                            headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
+                                     }, data=payload)
+    assert 401 == response.status_code
+    assert "subscribe" == response.json['operation']
+    assert "fail" == response.json['status']
 
-    def test_subscribe_user(self):
-        payload = json.dumps({'username': 'dsl', 'operation': 'subscribe'})
 
-        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ0Njk5MjgxLCJhZG0iOnRydWV9.gf3Fs2VdwsuGSPJSHebbgnR4JGtN8nPICW58ddWMuJY"
-        response = self.app.patch('user',
-                                 headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
-                                          }, data=payload)
-        print("RESPONSE DATA: ", response.data)
-        self.assertEqual(200, response.status_code)
-        self.assertEqual("subscribe", response.json['operation'])
-        self.assertEqual("success", response.json['status'])
+def test_block_user(client, token):
+    payload = json.dumps({'operation': 'block'})
+    response = client.patch('users/1',
+                            headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
+                                     }, data=payload)
+    assert 200 == response.status_code
+    assert "block" == response.json['operation']
+    assert "success" == response.json['status']
+
+
+def test_block_user_fail(client, token):
+    payload = json.dumps({'operation': 'block'})
+    response = client.patch('users/10',
+                            headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
+                                     }, data=payload)
+    assert 401 == response.status_code
+    assert "block" == response.json['operation']
+    assert "fail" == response.json['status']
