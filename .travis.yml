@@ -5,13 +5,9 @@ python:
 
 install:
   - pip install -r requirements.txt
+  - pip install .
 
-script:
-  - python -m pytest -v tests/test_login.py
-  - python -m pytest -v tests/test_match.py
-  - python -m pytest -v tests/test_prediction.py
-  - python -m pytest -v tests/test_team.py
-  - python -m pytest -v tests/test_user.py
+script: pytest
 
 after_success:
   - coveralls
