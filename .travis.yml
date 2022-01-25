@@ -6,8 +6,9 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install .
+  - pip install pytest-cov
 
-script: pytest
+script: pytest --cov=rest
 
 after_success:
   - coveralls
