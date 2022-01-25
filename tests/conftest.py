@@ -8,7 +8,6 @@ import datetime
 
 
 def init_test_db(database):
-    database.drop_all()
     database.create_all()
     password = generate_password_hash('test_password')
     user = User(username='test_user',
@@ -47,7 +46,8 @@ def client():
     with app.test_client() as client:
         with app.app_context():
             init_test_db(db)
-        yield client
+            yield client
+            db.drop_all()
 
 
 @pytest.fixture
