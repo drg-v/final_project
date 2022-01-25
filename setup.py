@@ -12,5 +12,5 @@ setup(
     install_requires=["Flask", "Flask-Cors", "Flask-Migrate", "flask-restful",
                       "Flask-SQLAlchemy", "numpy", "pandas", "PyJWT", "PyMySQL",
                       "pytest", "python-dotenv", "scikit-learn", "scipy", "Werkzeug",
-                      "gunicorn", "pylint", "python-coveralls"]
+                      "gunicorn", "pylint", "coveralls"]
 )
