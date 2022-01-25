@@ -1,4 +1,4 @@
-from models.models import Match
+from models.models import Match, Team
 from app import db
 from service import team_service
 from datetime import datetime
@@ -13,6 +13,12 @@ def get_matches(team_id):
     return team.matches if team else None
 
 
+def get_matches_by_range(team_id, start, end):
+    return Match.query.join(Match.teams) \
+        .filter(Team.id_ == team_id, start <= Match.date, Match.date <= end) \
+        .all()
+
+
 def get_match(match_id):
     return Match.query.filter_by(id_=match_id).first()
 
@@ -22,7 +28,7 @@ def add_match(data):
     away = team_service.get_team(data.away_id)
     if not (home and away):
         return 'fail'
-    match_date = datetime.strptime(data.match_date, '%Y-%m-%d %H:%M:%S')
+    match_date = datetime.strptime(data.match_date, '%Y-%b-%d %H:%M:%S')
     match = Match(date=match_date)
     home.matches.append(match)
     away.matches.append(match)

@@ -1,3 +1,5 @@
+import logging
+import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -17,6 +19,28 @@ def create_app(config):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(name)s: %(message)s')
+
+    file_handler = logging.FileHandler(filename='app.log', mode='w')
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.DEBUG)
+
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    console_handler.setLevel(logging.DEBUG)
+
+    logger = app.logger
+    logger.handlers.clear()
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    logger.setLevel(logging.DEBUG)
+
+    werkzeug_logger = logging.getLogger('werkzeug')
+    werkzeug_logger.handlers.clear()
+    werkzeug_logger.addHandler(file_handler)
+    werkzeug_logger.addHandler(console_handler)
+    werkzeug_logger.setLevel(logging.DEBUG)
+
     from rest.auth import auth
     from rest.teams import teams_bp
     from rest.matches import matches_bp
@@ -29,8 +53,3 @@ def create_app(config):
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(predictions_bp, url_prefix='/predictions')
     return app
-
-
-if __name__ == "__main__":
-    app = create_app('production')
-    app.run("0.0.0.0", debug=True)

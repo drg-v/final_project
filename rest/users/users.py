@@ -5,7 +5,7 @@ from . import users_api
 
 user_fields = {
     'users': fields.List(fields.Nested({
-        'id': fields.Integer,
+        'id_': fields.Integer,
         'username': fields.String,
         'status': fields.String,
         'is_subscriber': fields.Boolean,

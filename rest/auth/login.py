@@ -38,7 +38,6 @@ class Login(Resource):
         result = user_service.login_user(args.username, args.password)
         if result:
             token, user = result
-            print("AFTER SERVICE", token, user.username)
             res = {'status': 'success', 'token': token, 'user': user}, 200
         else:
             res = {'status': 'fail'}, 401

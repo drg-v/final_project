@@ -14,7 +14,7 @@ def get_user(name):
 
 def login_user(name, password):
     user = User.query.filter_by(username=name).first()
-    if user and check_password_hash(user.password, password):
+    if user and check_password_hash(user.password, password) and user.status == "active":
         return generate_token(user.id_, user.is_admin), user
 
 
