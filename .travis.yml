@@ -7,8 +7,11 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - pytest
+  - python -m pytest -v tests/test_login.py
+  - python -m pytest -v tests/test_match.py
+  - python -m pytest -v tests/test_prediction.py
+  - python -m pytest -v tests/test_team.py
+  - python -m pytest -v tests/test_user.py
 
 after_success:
   - coveralls
-  - pytest --pylint
