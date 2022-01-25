@@ -5,7 +5,7 @@ def test_post_match(client, token):
     payload = json.dumps({
         "home_id": 1,
         "away_id": 2,
-        "match_date": "2020-06-12 09:55:22"
+        "match_date": "2020-Jun-12 09:55:22"
     })
     response = client.post('matches', headers={"Content-Type": "application/json", "Authorization": "Bearer " + token
                                                }, data=payload)
