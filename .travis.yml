@@ -10,13 +10,13 @@ install:
 
 script:
   - pytest --cov=.
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy models
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy rest
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy service
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy tests
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy app.py
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy config.py
-  - python -m pylint --load-plugins pylint_flask_sqlalchemy utils.py
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy models --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy rest --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy service --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy tests --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy app.py --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy config.py --exit-zero
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy utils.py --exit-zero
 
 after_success:
   - coveralls
