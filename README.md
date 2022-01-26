@@ -10,7 +10,7 @@ This project consists of 2 applications:
 
 ## Project topic
 I have decided to make an application that lets us make football matches predictions.
-These are the main functionality of the project:
+These is the main functionality of the project:
 1. The project requires registration and authorization implemented with JWT:
    - the server generates token during login;
    - the client saves the token and sends it in every request;
