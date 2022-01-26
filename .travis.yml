@@ -10,7 +10,7 @@ install:
 
 script:
   - pytest --cov=.
-  - pylint
+  - pylint .
 
 after_success:
   - coveralls
