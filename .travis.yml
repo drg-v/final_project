@@ -10,7 +10,15 @@ install:
 
 script:
   - pytest --cov=.
-  - pylint .
+  - pylint models
+  - pylint rest
+  - pylint service
+  - pylint tests
+  - pylint app.py
+  - pylint config.py
+  - pylint setup.py
+  - pylint utils.py
+  - pylint wsgi.py
 
 after_success:
   - coveralls
