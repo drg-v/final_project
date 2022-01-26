@@ -43,11 +43,17 @@ These is the main functionality of the project:
 6. Team page for admin
   ![Login page](/images/team_admin.png)
   
-7. Team matches for user
+7. Admin add team form
+  ![Login page](/images/add_team.png)
+  
+8. Team matches for user
   ![Login page](/images/matches_user.png)
   
-8. Team matches for admin
+9. Team matches for admin
   ![Login page](/images/matche_admin.png)
+  
+10. Admin add match form
+  ![Login page](/images/add_match.png)
   
 9. Admin\`s users page
   ![Login page](/images/users_admin.png)
