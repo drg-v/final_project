@@ -1,3 +1,10 @@
+"""
+Module containing restful resource for single team
+
+Classes:
+    Team(Resource)
+"""
+
 from flask_restful import Resource, fields, marshal_with, reqparse
 from service import team_service
 from utils import token_required, admin_token_required
@@ -60,25 +67,64 @@ delete_fields = put_fields
 
 
 class Team(Resource):
+    """
+    A class used to represent Team resource
 
+    Methods
+    _______
+    get(id_: int)
+        Returns team with appropriate id_ if it exists
+    put(id_: int)
+        Returns the result of changing the team with appropriate id_
+   delete(id_: int)
+        Returns the result of deleting the team with appropriate id_
+    """
+
+    @staticmethod
     @token_required
     @marshal_with(team_fields)
-    def get(self, id_):
+    def get(id_: int):
+        """
+        Processes get request for the team with appropriate id_ and
+        returns the result if the team exists.
+
+        :param id_: team id
+        :return: team if it exists
+        """
+
         result = team_service.get_team(id_)
         code = 200 if result else 401
         return {'team': result}, code
 
+    @staticmethod
     @admin_token_required
     @marshal_with(put_fields)
-    def put(self, id_):
+    def put(id_: int):
+        """
+        Processes updating attempt for the team with appropriate id_
+        and returns the result
+
+        :param id_: team id
+        :return: the status of updating attempt
+        """
+
         args = put_parser.parse_args()
         result = team_service.change_team(id_, args)
         code = 200 if result == 'success' else 401
         return {'status': result}, code
 
+    @staticmethod
     @admin_token_required
     @marshal_with(delete_fields)
-    def delete(self, id_):
+    def delete(id_: int):
+        """
+        Processes deleting attempt for the team with appropriate id_
+        and returns the result
+
+        :param id_: team id
+        :return: the status of deleting attempt
+        """
+
         result = team_service.delete_team(id_)
         code = 200 if result == 'success' else 401
         return {'status': result}, code

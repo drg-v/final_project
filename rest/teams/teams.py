@@ -1,3 +1,10 @@
+"""
+Module containing restful resource for teams in general
+
+Classes:
+    Teams(Resource)
+"""
+
 from flask_restful import Resource, fields, marshal_with, reqparse
 from service import team_service
 from utils import token_required, admin_token_required
@@ -58,15 +65,35 @@ post_fields = {
 
 
 class Teams(Resource):
+    """
+    A class used to represent Teams resource
 
+    Methods
+    _______
+    get()
+        Returns all teams from the database
+    post()
+        Returns the result of adding new team
+    """
+
+    @staticmethod
     @token_required
     @marshal_with(teams_fields)
-    def get(self):
+    def get():
+        """Returns all teams from the database"""
+
         return {'teams': team_service.get_all_teams()}, 200
 
+    @staticmethod
     @admin_token_required
     @marshal_with(post_fields)
-    def post(self):
+    def post():
+        """
+        Processes adding the new team attempt and returns the result
+
+        :return: the status of adding attempt
+        """
+
         args = post_parser.parse_args()
         result = team_service.add_team(args)
         code = 200 if result == 'success' else 401

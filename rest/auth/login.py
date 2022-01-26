@@ -1,3 +1,10 @@
+"""
+Module containing restful resource for login
+
+Classes:
+    Login(Resource)
+"""
+
 from flask_restful import Resource, fields, marshal_with, reqparse
 from service import user_service
 from . import auth_api
@@ -31,9 +38,24 @@ login_fields = {
 
 
 class Login(Resource):
+    """
+    A class used to represent Login resource.
 
+    Methods
+    _______
+    post()
+        Returns the result of login attempt
+    """
+
+    @staticmethod
     @marshal_with(login_fields)
-    def post(self):
+    def post():
+        """
+        Processes login request and returns the result
+
+        :return: token and user entity if credentials are valid
+        """
+
         args = post_parser.parse_args()
         result = user_service.login_user(args.username, args.password)
         if result:

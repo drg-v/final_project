@@ -1,13 +1,24 @@
+"""
+Module containing pytest fixtures and function for tests setup
+
+Functions:
+    init_test_db(database)
+    client()
+    token(client)
+"""
+
+import json
+import datetime
+from werkzeug.security import generate_password_hash
 import pytest
 from app import create_app
 from app import db
 from models.models import User, Team, Match
-from werkzeug.security import generate_password_hash
-import json
-import datetime
 
 
 def init_test_db(database):
+    """A function used to initialize database for tests"""
+
     database.create_all()
     password = generate_password_hash('test_password')
     user = User(username='test_user',
@@ -42,6 +53,7 @@ def init_test_db(database):
 @pytest.fixture
 def client():
     """Pytest fixture to configure app test client"""
+
     app = create_app('testing')
     with app.test_client() as client:
         with app.app_context():
@@ -52,11 +64,15 @@ def client():
 
 @pytest.fixture
 def token(client):
+    """Pytest fixture to provide JWT authentication token"""
+
     username = 'test_user'
     password = 'test_password'
     payload = json.dumps({
         "username": username,
         "password": password
     })
-    response = client.post('auth/login', headers={"Content-Type": "application/json"}, data=payload)
+    response = client.post('auth/login',
+                           headers={"Content-Type": "application/json"},
+                           data=payload)
     return response.json['token']

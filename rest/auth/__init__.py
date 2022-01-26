@@ -1,3 +1,13 @@
+"""
+Package containing auth blueprint and restful resources
+
+Modules:
+    login.py : contains login resource
+    registration.py : contains registration resource
+Variables:
+    auth : Blueprint
+"""
+
 from flask import Blueprint
 from flask_restful import Api
 

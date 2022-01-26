@@ -1,3 +1,10 @@
+"""
+Module containing restful resource for registration
+
+Classes:
+    Registration(Resource)
+"""
+
 from flask_restful import Resource, fields, marshal_with, reqparse
 from service import user_service
 from . import auth_api
@@ -22,9 +29,24 @@ registration_fields = {
 
 
 class Registration(Resource):
+    """
+    A class used to represent Registration resource
 
+    Methods
+    _______
+    post()
+        Returns the result of registration attempt
+    """
+
+    @staticmethod
     @marshal_with(registration_fields)
-    def post(self):
+    def post():
+        """
+        Processes registration attempt and returns the result
+
+        :return: status of registration attempt
+        """
+
         args = post_parser.parse_args()
         result = user_service.create_user(args.username, args.password)
         res = {'status': result}, 200 if result == 'success' else 400

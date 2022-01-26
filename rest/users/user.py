@@ -1,3 +1,10 @@
+"""
+Module containing restful resource for single user
+
+Classes:
+    User(Resource)
+"""
+
 from flask_restful import Resource, fields, marshal_with, reqparse
 from service import user_service
 from utils import admin_token_required
@@ -17,10 +24,26 @@ patch_fields = {
 
 
 class User(Resource):
+    """
+    A class used to represent User resource
 
+    Methods
+    _______
+    patch(id_: int)
+        Returns the result of patch request of appropriate user
+    """
+
+    @staticmethod
     @admin_token_required
     @marshal_with(patch_fields)
-    def patch(self, id_):
+    def patch(id_: int):
+        """
+        Processes user updating attempt and returns the result
+
+        :param id_: user id
+        :return: the status of user updating attempt
+        """
+
         args = patch_parser.parse_args()
         if args.operation == 'subscribe':
             res = user_service.add_user_subscription(id_)

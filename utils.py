@@ -1,11 +1,24 @@
+"""
+Module containing utility functions for JWT authentication
+
+Functions:
+    generate_token(user_id, is_admin)
+
+Decorators:
+    token_required(f)
+    admin_token_required(f)
+"""
+
 from functools import wraps
+import datetime
 from flask import jsonify, request, current_app
 import jwt
 from models.models import User
-import datetime
 
 
 def token_required(f):
+    """A decorator to validate user`s JWT token"""
+
     @wraps(f)
     def decorator(*args, **kwargs):
         token = request.headers.get('Authorization')
@@ -24,12 +37,17 @@ def token_required(f):
 
 
 def generate_token(user_id, is_admin):
-    return jwt.encode(
-        {'id': user_id, 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=30), 'adm': is_admin},
-        current_app.config['SECRET_KEY'], algorithm="HS256")
+    """A function that generates JWT token for the user"""
+
+    return jwt.encode({'id': user_id,
+                       'exp': datetime.datetime.utcnow() + datetime.timedelta(days=30),
+                       'adm': is_admin},
+                      current_app.config['SECRET_KEY'], algorithm="HS256")
 
 
 def admin_token_required(f):
+    """A decorator to validate admin`s JWT token"""
+
     @wraps(f)
     def decorator(*args, **kwargs):
         token = request.headers.get('Authorization')

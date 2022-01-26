@@ -1,3 +1,13 @@
+"""
+Package containing matches blueprint and restful resources
+
+Modules:
+    match.py : contains resource for single match
+    matches.py : contains resource for matches in general
+Variables:
+    matches_bp : Blueprint
+"""
+
 from flask import Blueprint
 from flask_restful import Api
 

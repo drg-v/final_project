@@ -1,3 +1,12 @@
+"""
+Package containing predictions blueprint and restful resource
+
+Modules:
+    prediction.py : contains resource for prediction
+Variables:
+    predictions_bp : Blueprint
+"""
+
 from flask import Blueprint
 from flask_restful import Api
 

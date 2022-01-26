@@ -1,3 +1,13 @@
+"""
+Package containing users blueprint and restful resources
+
+Modules:
+    user.py : contains resource for single user
+    users.py : contains resource for users in general
+Variables:
+    users_bp : Blueprint
+"""
+
 from flask import Blueprint
 from flask_restful import Api
 

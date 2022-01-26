@@ -1,6 +1,17 @@
+"""
+Module containing flask application factory and db instance
+
+Functions:
+    create_app(config)
+
+Variables:
+    db : SQLAlchemy()
+"""
+
 import logging
 import sys
 from flask import Flask
+from flask.logging import create_logger
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -13,6 +24,13 @@ cors = CORS()
 
 
 def create_app(config):
+    """
+    Flask application factory
+
+    :param config: str representing app config
+    :return: flask app
+    """
+
     app = Flask(__name__, static_folder='/static')
     app.config.from_object(get_config(config))
     cors.init_app(app)
@@ -29,7 +47,7 @@ def create_app(config):
     console_handler.setFormatter(formatter)
     console_handler.setLevel(logging.DEBUG)
 
-    logger = app.logger
+    logger = create_logger(app)
     logger.handlers.clear()
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)

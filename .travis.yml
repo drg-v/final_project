@@ -10,15 +10,13 @@ install:
 
 script:
   - pytest --cov=.
-  - pylint models
-  - pylint rest
-  - pylint service
-  - pylint tests
-  - pylint app.py
-  - pylint config.py
-  - pylint setup.py
-  - pylint utils.py
-  - pylint wsgi.py
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy models
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy rest
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy service
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy tests
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy app.py
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy config.py
+  - python -m pylint --load-plugins pylint_flask_sqlalchemy utils.py
 
 after_success:
   - coveralls

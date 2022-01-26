@@ -1,4 +1,12 @@
+"""
+Module containing function to predict match result
+
+Functions:
+    get_prediction(match_id: int) -> Union[List[float], str]
+"""
+
 import pickle
+from typing import List, Union
 import pandas as pd
 
 from service import match_service
@@ -27,7 +35,15 @@ teams_convert = {
 }
 
 
-def get_prediction(match_id):
+def get_prediction(match_id: int) -> Union[List[float], str]:
+    """
+    Predicts the result of the match with appropriate id_ if match_id
+    is valid.
+
+    :param match_id: match id_
+    :return: the result and status of prediction
+    """
+
     match = match_service.get_match(match_id)
     if not match:
         return "fail"
@@ -51,4 +67,4 @@ def get_prediction(match_id):
     print("data:  ", data)
     df = pd.DataFrame(data)
     print(df)
-    return model.predict(df)
+    return model.predict(df)[0]
