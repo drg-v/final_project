@@ -57,7 +57,7 @@ These is the main functionality of the project:
  
 ## How to build the project
 
-1. Make sure that `python` and `pip` are installed on your computer.
+1. Make sure that `python` interpreter >= 3.8.10 and `pip` are installed on your computer.
 2. Then clone this repository
   ```
   git clone https://github.com/drg-v/final_project
